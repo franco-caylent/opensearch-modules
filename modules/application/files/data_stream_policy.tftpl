@@ -1,0 +1,49 @@
+{
+    "policy": {
+        "description": "Sample policy for datastreams managed by terraform",
+        "default_state": "hot",
+        "states": [
+            {
+                "name": "hot",
+                "actions": [
+                    {
+                        "retry": {
+                            "count": 3,
+                            "backoff": "exponential",
+                            "delay": "1m"
+                        },
+                        "rollover": {
+                            "min_primary_shard_size": "20gb"
+                        }
+                    }
+                ],
+                "transitions": [
+                    {
+                        "state_name": "delete",
+                        "conditions": {
+                            "min_index_age": "10d"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "delete",
+                "actions": [
+                    {
+                    "retry": {
+                        "count": 3,
+                        "backoff": "exponential",
+                        "delay": "1m"
+                    },
+                    "delete": {}
+                }
+                ],
+                "transitions": []
+            }
+        ],
+        "ism_template": [{
+            "priority": 0,
+            "index_patterns": ${index_patterns}
+        }]
+    }
+}
