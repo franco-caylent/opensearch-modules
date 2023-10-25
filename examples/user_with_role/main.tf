@@ -1,10 +1,10 @@
 module "user_with_role" {
-  source   = "../user_with_role"
-  name     = var.name
-  password_hash = var.password_hash
+  source   = "../../modules/user_with_role"
+  name     = "user-with-role"
+  password_hash = "$2y$12$QB1Ju3D508OnRLTRKRZeeO3Jj1JMgYynWu/dI8WsHdwvthqLwncRG"
   index_permissions = {
     write = {
-      index_patterns = toset(local.index_patterns)
+      index_patterns = toset(["index1-*", "index2"])
       allowed_actions = toset([
         "indices:data/write/index",
         "indices:admin/create",
@@ -14,5 +14,8 @@ module "user_with_role" {
     }
   }
   cluster_permissions = ["cluster:monitor/main"]
-  attributes = var.attributes
+  attributes = {
+    "Terraform" = "true"
+    "Deployment" = "opensearch-modules-example"
+  }
 }

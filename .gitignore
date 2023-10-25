@@ -1,1 +1,4 @@
-examples/tmp/*
+**/.terraform
+**/.terraform.lock.hcl
+**/terraform.tfstate*
+.gitignore

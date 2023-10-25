@@ -13,7 +13,7 @@
                             "delay": "1m"
                         },
                         "rollover": {
-                            "min_primary_shard_size": "20gb"
+                            "min_primary_shard_size": "${min_primary_shard_size}gb"
                         }
                     }
                 ],
@@ -21,7 +21,7 @@
                     {
                         "state_name": "delete",
                         "conditions": {
-                            "min_index_age": "10d"
+                            "min_index_age": "${min_index_age}d"
                         }
                     }
                 ]

@@ -36,8 +36,23 @@ variable "index_template_replicas" {
   default = 1
 }
 
+variable "index_retention_policy" {
+  type        = number
+  description = "Number of days after an index will be marked for deletion"
+  default = 20
+}
+
+##########################################################################################
+##                                Data Streams                                          ##
+##########################################################################################
 variable "create_data_stream" {
   type        = bool
   description = "Creates a data stream so applications always write to the same index"
   default = false
+}
+
+variable "ds_rollover_min_primary_shard_size" {
+  type        = number
+  description = "Number of GB to use as minimum primary shard size for rolling over a data stream. See https://opensearch.org/docs/2.11/im-plugin/ism/policies/#rollover"
+  default = 20
 }
